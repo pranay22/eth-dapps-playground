@@ -5,6 +5,8 @@
 // Step 1: Set up the appropriate configuration 
 var Web3 = require("web3") 
 var EthereumTransaction = require("ethereumjs-tx") 
+// New ethereumtx have different syntax, which will also affect the way we create the rawTransaction
+// https://ethereum.stackexchange.com/questions/84357/
 const EthereumTx = require('ethereumjs-tx').Transaction
 var web3 = new Web3('HTTP://127.0.0.1:7545')
 
