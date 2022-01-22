@@ -5,11 +5,12 @@
 // Step 1: Set up the appropriate configuration 
 var Web3 = require("web3") 
 var EthereumTransaction = require("ethereumjs-tx") 
+const EthereumTx = require('ethereumjs-tx').Transaction
 var web3 = new Web3('HTTP://127.0.0.1:7545')
 
 // Step 2: Set the sending and receiving addresses for the transaction. 
-var sendingAddress = 'ADDRESS FROM GANACHE GOES HERE' 
-var receivingAddress = 'ANOTHER ADDRESS FROM GANACHE GOES HERE'
+var sendingAddress = '0x781533b25488b232Ff9dF496AB0B015CB21D76fF'
+var receivingAddress = '0x71176c97f84b658308F344ccc569577c39586b0E'
 
 // Step 3: Check the balances of each address 
 web3.eth.getBalance(sendingAddress).then(console.log) 
@@ -21,12 +22,12 @@ web3.eth.getBalance(receivingAddress).then(console.log)
 
 // Step 4: Set up the transaction using the transaction variables as shown 
 var rawTransaction = { 
-	nonce: 0, 
-	to: receivingAddress, 
-	gasPrice: 20000000, 
-	gasLimit: 30000, 
-	value: 1, 
-	data: "" 
+	nonce: web3.utils.toHex(0),
+    to: receivingAddress,
+    gasPrice: web3.utils.toHex(20000000),
+    gasLimit: web3.utils.toHex(30000),
+    value: web3.utils.toHex(100),
+    data: web3.utils.toHex("")
 }
 
 // Step 5: View the raw transaction 
@@ -43,9 +44,9 @@ web3.eth.getBalance(receivingAddress).then(console.log)
 ########################*/
 
 // Step 7: Sign the transaction with the Hex value of the private key of the sender 
-var privateKeySender = 'PRIVATE KEY OF SENDER GOES HERE' 
-var privateKeySenderHex = new Buffer(privateKeySender, 'hex') 
-var transaction = new EthereumTransaction(rawTransaction) 
+var privateKeySender = 'b88a97f2ead81a90a88f1af08bec541657720b98fc1f6db54167117b893225d3' 
+var privateKeySenderHex = new Buffer.from(privateKeySender, 'hex') 
+var transaction = new EthereumTx(rawTransaction) 
 transaction.sign(privateKeySenderHex)
 
 /*#######################################
